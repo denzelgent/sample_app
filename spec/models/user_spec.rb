@@ -85,7 +85,7 @@ end
       it "should have a password confirmation atttribute" do
         @user.should respond_to(:password_confirmation)
       end
-    end
+  end
     
     describe "password validations" do
       
@@ -131,6 +131,8 @@ end
         @user.encrypted_password.should_not be_blank
       end
       
+
+      
       describe "has_password? method" do
         
       it "should exist" do
@@ -164,23 +166,32 @@ end
         it "should return the user an email/password match" do
           User.authenticate(@attr[:email], @attr[:password]).should == @user
         end
-        
       end
-  end
-end
-
-
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#
-
+          describe "sign in/out" do
+                
+              describe "failure" do
+                
+              it "should not sign a user in" do
+                      visit signin_path
+                      fill_in :email,    :with => ""
+                      fill_in :password, :with => ""
+                      click_button
+                      response.should have_selector("div.flash.error", :content => "Invalid")
+                    end 
+              end
+              describe "success" do
+              it "should sign a user in and out" do
+                      user = Factory(:user)
+                      visit signin_path
+                      fill_in :email,    :with => user.email
+                      fill_in :password, :with => user.password
+                      click_button
+                      controller.should be_signed_in
+                      click_link "Sign out"
+                      controller.should_not be_signed_in
+                    end 
+                 end
+               end     
+          end
+   end
+  
