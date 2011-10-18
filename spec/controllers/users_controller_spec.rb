@@ -44,6 +44,7 @@ end
   
   
   describe "GET 'new'" do
+    
     it "should be successful" do
       get :new
       response.should be_success
@@ -53,5 +54,28 @@ end
       response.should have_selector("title", :content => "Sign up")
         end 
       end
+      
+      describe "POST 'CREATE'" do
+        decribe "failure" do
+          before(:each) do
+            @attr={:name =>"", :email => "", :password => ""
+                  :password_confirmation =>""}
+          end
+          
+          it "should have the right title" do
+            post :create, :user => @attr
+            response.should have_selector('title', :content => "Sign Up")
+          end
+          
+          it "should render the 'new' page" do
+            post :create, :user => @attr
+            response.should render_template('new')
+          end
+          
+          it "should not create a user"
+          
+        end
+          
+      
     end
 

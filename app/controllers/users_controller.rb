@@ -7,10 +7,13 @@ class UsersController < ApplicationController
   
   def new 
     @user = User.new
-    @title = "Sign up"
-    
-    
+    @title = "Sign up"    
   end 
+  
+  def create
+    @user = User.new
+    render 'new'
+  end
   
  
   
