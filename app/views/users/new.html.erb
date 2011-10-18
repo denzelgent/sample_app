@@ -1,27 +1,17 @@
-<form action="/users" class="new_user" id="new_user" method="post"> 
-<div style="margin:0;padding:0;display:inline">
-<input name="authenticity_token" type="hidden" value="rB82sI7Qw5J9J1UMILG/VQL411vH5putR+JwlxLScMQ=" />
-</div>
 
-<div class="field"> 
-  <label for="user_name">Name</label><br /> 
-  <input id="user_name" name="user[name]" size="30" type="text" />
-</div>
-<div class="field"> 
-  <label for="user_email">Email</label><br /> 
-  <input id="user_email" name="user[email]" size="30" type="text" />
-</div> 
+<h1>Sign up</h1>
+<%= form_for(@user) do |f| %> <div class="field">
+<%= f.label :name %><br />
+<%= f.text_field :name %> </div>
 <div class="field">
-  <label for="user_password">Password</label><br />
-  <input id="user_password" name="user[password]" size="30" type="password" /> 
+<%= f.label :email %><br /> <%= f.text_field :email %>
 </div>
-<div class="field"> 
-  <label for="user_password_confirmation">Confirmation</label><br /> 
-  <input id="user_password_confirmation" name="user[password_confirmation]"
-          size="30" type="password" />
-</div> 
-
+<div class="field">
+<%= f.label :password %><br />
+<%= f.password_field :password %> </div>
+<div class="field">
+<%= f.label :password_confirmation, "Confirmation" %><br /> <%= f.password_field :password_confirmation %>
+</div>
 <div class="actions">
-<input id="user_submit" name="commit" type="submit" value="Sign up" /> 
-</div>
-</form>
+<%= f.submit "Sign up" %> </div>
+<% end %>
